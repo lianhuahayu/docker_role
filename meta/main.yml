@@ -1,0 +1,6 @@
+---
+galaxy_info:
+  role_name: docker_role
+  author: Daniel
+  description: Ansible docker role
+  company: ICGROUP

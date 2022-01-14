@@ -1,0 +1,41 @@
+- name: "pre-requis pour installer docker"
+    package:
+      name: curl
+      state: present
+
+- name: "Recuperation du script d installation de Docker"
+    command: 'curl -fsSL https://get.docker.com -o get-docker.sh'
+
+- name: "Executer le script d'installation de Docker"
+  command: "sh get-docker.sh"
+  when: ansible_docker0 is undefined
+
+- name: "Démarrage et ajout au redémarrage du service Docker"
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: "Ajout de notre utilisateur au groupe docker"
+  user:
+    name: "{{ ansible_user }}"
+    append: yes
+    groups:
+        - docker
+
+- name: "Installation de  python pip pour ubuntu"
+    apt:
+      name: python3-pip
+      state: present
+    when: ansible_distribution == "Ubuntu"
+
+- name: "Installation du module docker-py"
+  pip:
+    name: docker-py
+    state: present
+
+- name: "prerequis dockercompose"
+  command: 'curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose'
+
+- name: "install docker cmpose"
+  command: 'chmod +x /usr/local/bin/docker-compose'

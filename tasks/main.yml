@@ -1,10 +1,10 @@
 - name: "pre-requis pour installer docker"
-    package:
-      name: curl
-      state: present
+  package:
+    name: curl
+    state: present
 
 - name: "Recuperation du script d installation de Docker"
-    command: 'curl -fsSL https://get.docker.com -o get-docker.sh'
+  command: 'curl -fsSL https://get.docker.com -o get-docker.sh'
 
 - name: "Executer le script d'installation de Docker"
   command: "sh get-docker.sh"
@@ -24,10 +24,10 @@
         - docker
 
 - name: "Installation de  python pip pour ubuntu"
-    apt:
-      name: python3-pip
-      state: present
-    when: ansible_distribution == "Ubuntu"
+  apt:
+    name: python3-pip
+    state: present
+  when: ansible_distribution == "Ubuntu"
 
 - name: "Installation du module docker-py"
   pip:
@@ -39,3 +39,8 @@
 
 - name: "install docker cmpose"
   command: 'chmod +x /usr/local/bin/docker-compose'
+
+- name: "Installation du module docker-compose"
+  pip:
+    name: docker-compose
+    state: present

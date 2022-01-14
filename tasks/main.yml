@@ -29,10 +29,11 @@
     state: present
   when: ansible_distribution == "Ubuntu"
 
-- name: "Installation du module docker-py"
-  pip:
-    name: docker-py
-    state: present
+# Cette partie est inutile car nous aurons le module docker-compose qui installera docker python 
+#- name: "Installation du module docker-py"
+#  pip:
+#    name: docker-py
+#    state: present
 
 - name: "prerequis dockercompose"
   command: 'curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose'
